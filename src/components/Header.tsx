@@ -8,7 +8,7 @@ export function Header() {
     <header className="w-full h-17.5 flex justify-between items-center px-4">
       <nav className="w-full flex justify-between items-center gap-4">
         <Link href="/">
-          <Image src="/images/logo.png" alt="logo" width={150} height={150} />
+          <Image src="/images/logo.png" alt="logo" width={150} height={100} className="w-[150px] h-full" />
         </Link>
         <div className="flex items-center gap-6">
           <div className="h-9 flex items-center gap-2 border-1 rounded-full pl-2 pr-4 focus-within:ring-1 focus-within:ring-primary">
