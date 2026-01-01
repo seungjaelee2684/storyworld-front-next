@@ -1,4 +1,3 @@
-import { authStore } from "@/store/authStore";
 import axios from "axios";
 
 export const instance = axios.create({
