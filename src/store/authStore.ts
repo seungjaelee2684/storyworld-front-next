@@ -19,7 +19,7 @@ interface AuthActions {
 
 type AuthStore = AuthState & AuthActions;
 
-export const authStore = create<AuthStore>((set, get) => ({
+export const authStore = create<AuthStore>((set) => ({
     token: null,
     isLogged: false,
     username: null,
