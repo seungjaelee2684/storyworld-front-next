@@ -3,10 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useStoriesInquiry({page}: {page?: number}) {
     return useQuery({
-        queryKey: ["stories"],
+        queryKey: ["stories", page],
         queryFn: async () => {
-            const {data} = await storiesService.findAll({page: page ?? 1});
-            return data;
+            return await storiesService.findAll({page: page ?? 1});
         }
     })
 }
