@@ -1,5 +1,6 @@
 'use client';
 
+import { PrivateRoute } from "@/components/PrivateRoute";
 import { HydrationBoundary, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export function Providers({children}: {children: React.ReactNode}) {
@@ -8,7 +9,9 @@ export function Providers({children}: {children: React.ReactNode}) {
     return (
         <QueryClientProvider client={queryClient}>
             <HydrationBoundary state={null}>
-                {children}
+                <PrivateRoute>
+                    {children}
+                </PrivateRoute>
             </HydrationBoundary>
         </QueryClientProvider>
     )
