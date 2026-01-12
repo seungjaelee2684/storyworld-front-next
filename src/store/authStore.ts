@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthState {
     token: string | null;
@@ -19,16 +20,24 @@ interface AuthActions {
 
 type AuthStore = AuthState & AuthActions;
 
-export const authStore = create<AuthStore>((set) => ({
-    token: null,
-    isLogged: false,
-    username: null,
-    email: null,
-    is_admin: false,
-    setToken: (token: string) => set({ token }),
-    setUsername: (username: string) => set({ username }),
-    setEmail: (email: string) => set({ email }),
-    setIsAdmin: (is_admin: boolean) => set({ is_admin }),
-    login: (token: string, username: string, email: string, is_admin: boolean) => set({ token, username, email, is_admin, isLogged: true }),
-    logout: () => set({ token: null, username: null, email: null, is_admin: false, isLogged: false }),
-}))
+export const authStore = create<AuthStore>()(
+    persist(
+        (set) => ({
+            token: null,
+            isLogged: false,
+            username: null,
+            email: null,
+            is_admin: false,
+            setToken: (token: string) => set({ token }),
+            setUsername: (username: string) => set({ username }),
+            setEmail: (email: string) => set({ email }),
+            setIsAdmin: (is_admin: boolean) => set({ is_admin }),
+            login: (token: string, username: string, email: string, is_admin: boolean) => set({ token, username, email, is_admin, isLogged: true }),
+            logout: () => set({ token: null, username: null, email: null, is_admin: false, isLogged: false }),
+        }),
+        {
+            name: "auth-storage",
+            storage: createJSONStorage(() => sessionStorage),
+        }
+    )
+)
