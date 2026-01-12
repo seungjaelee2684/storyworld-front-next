@@ -10,7 +10,7 @@ export function HomeTitle() {
                 </h1>
                 <FilterTab />
             </div>
-            <Link href="/story/create" className="text-sm bg-primary rounded-sm px-4 py-1.5 text-white">
+            <Link href="/dashboard" className="text-sm bg-primary rounded-sm px-4 py-1.5 text-white">
                 CREATE
             </Link>
         </section>
