@@ -4,3 +4,8 @@ export interface SignupType {
     nickname: string;
     email: string;
 }
+
+export interface KakaoLoginType {
+    code: string;
+    redirect_uri: string;
+}

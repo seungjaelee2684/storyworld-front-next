@@ -65,7 +65,7 @@ export default function Signup() {
         if (Object.values(duplicateSuccess).some(value => value === null)) return toast.error("중복 체크를 모두 진행해주세요.");
         const result = await mutateAsync(data);
         if (result) {
-            router.push("/login");
+            router.push("/auth/login");
         }
     }
 
@@ -85,7 +85,7 @@ export default function Signup() {
     }
 
     return (
-        <article className="w-full h-full flex flex-col justify-center items-center gap-10 pt-4 pb-10">
+        <article className="w-full flex flex-col justify-center items-center gap-10 pt-4 pb-10">
             <h1 className="text-2xl font-bold">회원가입</h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="sm:w-3/7 w-full flex flex-col gap-8">
