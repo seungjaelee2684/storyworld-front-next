@@ -1,5 +1,5 @@
 import { instance } from "@/lib/axios";
-import { SignupType } from "@/types/authType";
+import { KakaoLoginType, SignupType } from "@/types/authType";
 
 export const authService = {
     me: async () => {
@@ -18,6 +18,10 @@ export const authService = {
             throw data.detail;
         }
 
+        return data;
+    },
+    kakaoLogin: async ({body}: {body: KakaoLoginType}) => {
+        const {data} = await instance.post("/api/auth/kakao/login/", body);
         return data;
     },
     signup: async (body: SignupType) => {

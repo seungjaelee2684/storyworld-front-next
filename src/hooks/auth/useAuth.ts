@@ -1,6 +1,6 @@
 import { authService } from "@/services/authService";
 import { authStore } from "@/store/authStore";
-import { SignupType } from "@/types/authType";
+import { KakaoLoginType, SignupType } from "@/types/authType";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -16,7 +16,22 @@ export function useLogin() {
                 data.email,
                 data.is_admin,
             );
-            localStorage.setItem("login-info", JSON.stringify(data));
+        },
+    })
+}
+
+export function useKakaoLogin() {
+    return useMutation({
+        mutationFn: async ({body}: {body: KakaoLoginType}) => {
+            return await authService.kakaoLogin({body});
+        },
+        onSuccess: (data) => {
+            authStore.getState().login(
+                data.token,
+                data.username,
+                data.email,
+                data.is_admin,
+            );
         },
     })
 }
