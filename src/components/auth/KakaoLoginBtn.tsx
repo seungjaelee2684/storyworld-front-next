@@ -6,7 +6,7 @@ export default function KakaoLoginBtn() {
     const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY || "";
     const CLIENT_URL = process.env.NODE_ENV === 'development' 
         ? "http://localhost:3000" 
-        : (process.env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:3000");
+        : (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000");
     const REDIRECT_URI = `${CLIENT_URL}/auth/login/kakao`;
     const KAKAO_AUTHORIZE_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 

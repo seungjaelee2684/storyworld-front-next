@@ -10,7 +10,7 @@ export default function KakaoLoginPage() {
     const [isMounted, setIsMounted] = useState(false);
     const CLIENT_URL = process.env.NODE_ENV === 'development'
         ? "http://localhost:3000"
-        : (process.env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:3000");
+        : (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000");
     const REDIRECT_URI = `${CLIENT_URL}/auth/login/kakao`;
     const { mutateAsync: kakaoLogin } = useKakaoLogin();
 
