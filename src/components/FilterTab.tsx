@@ -11,24 +11,24 @@ type TabType = {
 const tabs: TabType[] = [
   {
     label: "전체",
-    value: "all",
+    value: "",
   },
   {
     label: "인기순",
-    value: "popular",
+    value: "popularity",
   },
-  {
-    label: "별점순",
-    value: "rating",
-  },
+  // {
+  //   label: "별점순",
+  //   value: "rating",
+  // },
   {
     label: "최신순",
-    value: "new",
+    value: "created_at",
   }
 ]
 
 export function FilterTab() {
-  const currentParams = useGetSearchParams("tab");
+  const currentParams = useGetSearchParams("filter");
   
   return (
     <nav className="flex items-center gap-2 text-sm">
@@ -37,7 +37,7 @@ export function FilterTab() {
 
         return (
           <Fragment key={item.value}>
-            <Link href={`?tab=${item.value}`} className={cn(
+            <Link href={`?filter=${item.value}`} className={cn(
               isActive ? "text-foreground font-medium" : "text-foreground/70",
               "hover:text-foreground")}>
               {item.label}
