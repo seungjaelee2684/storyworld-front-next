@@ -50,7 +50,7 @@ export default function Login() {
     }, [isLogged, router])
 
     return (
-        <article className="w-full h-full flex flex-col justify-center items-center gap-10 pt-4 pb-10">
+        <article className="w-full flex flex-col justify-center items-center gap-10 sm:px-0 px-4">
             <h1 className="text-2xl font-bold">로그인</h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="sm:w-3/7 w-full flex flex-col gap-4">
