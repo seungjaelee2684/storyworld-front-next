@@ -1,5 +1,6 @@
 'use client';
 
+import KakaoLoginBtn from "@/components/auth/KakaoLoginBtn";
 import { DynamicTextField } from "@/components/DynamicTextField";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@/hooks/auth/useAuth";
@@ -49,6 +50,8 @@ export default function Login() {
         }
     }, [isLogged, router])
 
+    if (isLogged) return null;
+
     return (
         <article className="w-full flex flex-col justify-center items-center gap-10 sm:px-0 px-4">
             <h1 className="text-2xl font-bold">로그인</h1>
@@ -69,10 +72,11 @@ export default function Login() {
                         {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                         {isPending ? "로그인 중..." : "로그인"}
                     </Button>
-                    <div className="w-full flex justify-between items-center text-sm text-gray-500">
+                    <div className="w-full flex justify-between items-center text-sm text-gray-500 pb-10">
                         <Link href="/forgot-password" className="hover:text-primary/80 transition-colors">비밀번호 찾기</Link>
-                        <Link href="/signup" className="hover:text-primary/80 transition-colors">회원가입</Link>
+                        <Link href="/auth/signup" className="hover:text-primary/80 transition-colors">회원가입</Link>
                     </div>
+                    <KakaoLoginBtn />
                 </form>
             </FormProvider>
         </article>
