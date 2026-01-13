@@ -5,6 +5,8 @@ import { useGetSearchParams } from "@/hooks/params/useGetSearchParams";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function KakaoLoginPage() {
 
     const router = useRouter();
