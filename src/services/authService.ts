@@ -20,6 +20,10 @@ export const authService = {
 
         return data;
     },
+    logout: async () => {
+        const {data} = await instance.delete("/api/auth/logout/");
+        return data;
+    },
     kakaoLogin: async ({body}: {body: KakaoLoginType}) => {
         const {data} = await instance.post("/api/auth/kakao/login/", body);
         return data;
