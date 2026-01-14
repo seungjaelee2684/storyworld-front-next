@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { PageLayout } from "@/components/PageLayout";
+import { PageLayout } from "@/app/_components/PageLayout";
 import { Providers } from "./providers";
 
 const geistSans = Geist({
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-  keywords: ["스토리월드", "소설", "소설 쓰기", "소설 읽기"],
+  keywords: ["스토리월드", "소설", "소설 쓰기", "소설 읽기", "storyworld", "story"],
   authors: [{ name: "StoryWorld", url: "https://storyworld.com" }],
   creator: "StoryWorld",
   publisher: "StoryWorld",
@@ -35,20 +35,22 @@ export const metadata: Metadata = {
     description: "스토리월드는 소설을 쓰고 읽는 공간입니다.",
     images: [
       {
-        url: `${baseUrl}/images/logo.png`,
+        url: `/images/logo.png`,
         width: 1200,
         height: 630,
         alt: "스토리월드",
+        type: "image/png",
       },
     ],
     type: "website",
     siteName: "스토리월드",
+    locale: "ko_KR",
   },
   twitter: {
     card: "summary_large_image",
     title: "스토리월드",
     description: "스토리월드는 소설을 쓰고 읽는 공간입니다.",
-    images: [`${baseUrl}/images/logo.png`],
+    images: [`/images/logo.png`],
   },
 };
 

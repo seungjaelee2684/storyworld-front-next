@@ -43,7 +43,7 @@ export function RecommandCardList() {
           <ChevronRight className="w-4 h-4" />
         </Link>
       </div>
-      <ul className="w-full grid grid-cols-7 items-center gap-2">
+      <ul className="w-full grid xl:grid-cols-7 sm:grid-cols-5 grid-cols-4 items-center gap-2">
         {list.map((item) => (
           <VerticalCard
             key={item.id}
