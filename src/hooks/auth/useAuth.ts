@@ -20,6 +20,17 @@ export function useLogin() {
     })
 }
 
+export function useLogout() {
+    return useMutation({
+        mutationFn: async () => {
+            return await authService.logout();
+        },
+        onSuccess: () => {
+            authStore.getState().logout();
+        }
+    })
+}
+
 export function useKakaoLogin() {
     return useMutation({
         mutationFn: async ({body}: {body: KakaoLoginType}) => {

@@ -1,4 +1,4 @@
-import { FilterTab } from "@/components/FilterTab";
+import { FilterTab } from "@/app/_components/FilterTab";
 import Link from "next/link";
 
 export function HomeTitle() {
