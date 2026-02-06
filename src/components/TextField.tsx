@@ -2,6 +2,8 @@ import { Control, FieldValues, Path } from "react-hook-form";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 interface TextFieldProps<T extends FieldValues = FieldValues> {
     control: Control<T>;
@@ -11,6 +13,7 @@ interface TextFieldProps<T extends FieldValues = FieldValues> {
     successMessage?: string | null;
     type?: string;
     unit?: string;
+    isPassword?: boolean;
     button?: React.ReactNode;
 }
 
@@ -22,8 +25,10 @@ export function TextField<T extends FieldValues = FieldValues>({
     successMessage,
     type = "text",
     unit,
+    isPassword = false,
     button,
 }: TextFieldProps<T>) {
+    const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
     return (
         <FormField
             control={control}
@@ -38,16 +43,22 @@ export function TextField<T extends FieldValues = FieldValues>({
                         {label}
                     </FormLabel>
                     <div className="w-full flex items-center gap-2">
-                        <FormControl className={cn(
-                            successMessage && "border-green-400",
-                            "w-full flex justify-between items-center gap-2 p-2 rounded-sm focus-within:ring-1 focus-within:ring-primary"
-                        )}>
-                            <Input
-                                {...field}
-                                id={field.name}
-                                className="w-full"
-                                type={type}
-                                placeholder={placeholder} />
+                        <FormControl>
+                            <div className={cn(
+                                successMessage ? "border-green-400" : "border-input",
+                                "w-full flex justify-between items-center gap-2 p-2 rounded-sm border-1 border-input h-9 focus-within:border-primary transition-all"
+                            )}>
+                                <Input
+                                    {...field}
+                                    id={field.name}
+                                    className="w-full border-none px-0 py-0 h-full rounded-none focus-visible:border-none"
+                                    type={isPassword ? (passwordVisible ? "text" : "password") : type}
+                                    placeholder={placeholder} />
+                                {isPassword
+                                    && (passwordVisible
+                                        ? <EyeOffIcon className="w-4 h-4 cursor-pointer text-muted-foreground" onClick={() => setPasswordVisible(!passwordVisible)} />
+                                        : <EyeIcon className="w-4 h-4 cursor-pointer text-muted-foreground" onClick={() => setPasswordVisible(!passwordVisible)} />)}
+                            </div>
                         </FormControl>
                         {unit && <span className="text-sm text-muted-foreground">{unit}</span>}
                         {button && button}

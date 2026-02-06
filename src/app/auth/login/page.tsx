@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 interface LoginFormType {
@@ -38,9 +39,12 @@ export default function Login() {
     })
 
     const onSubmit = async (data: LoginFormType) => {
-        const result = await mutateAsync(data);
-        if (result) {
+        try {
+            await mutateAsync(data);
             router.push("/");
+        } catch (error) {
+            toast.error("아이디 또는 비밀번로가 일치하지 않습니다.");
+            return;
         }
     }
 
