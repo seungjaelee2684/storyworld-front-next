@@ -11,7 +11,7 @@ export function HomeTitle() {
                 <FilterTab />
             </div>
             <Link href="/dashboard" className="text-sm bg-primary rounded-sm px-4 py-1.5 text-white">
-                CREATE
+                CREATOR's
             </Link>
         </section>
     )
