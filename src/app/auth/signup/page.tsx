@@ -76,6 +76,7 @@ export default function Signup() {
             form.clearErrors(type);
             setDuplicateSuccess((prev) => ({ ...prev, [type]: `사용가능한 ${typeString}입니다.`}))
         } catch (error) {
+            console.log(error);
             setDuplicateSuccess((prev) => ({ ...prev, [type]: null }));
             form.setError(type, {
                 type: "manual",
