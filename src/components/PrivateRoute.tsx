@@ -1,8 +1,15 @@
 import { useRefresh } from "@/hooks/auth/useAuth";
 import { authStore } from "@/store/authStore";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-export function PrivateRoute({ children }: { children: React.ReactNode }) {
+interface PrivateRouteProps {
+    isLimit?: boolean;
+    children: React.ReactNode;
+}
+
+export function PrivateRoute({ isLimit = false, children }: PrivateRouteProps): React.ReactNode {
+    const router = useRouter();
     const {isLogged, token, logout} = authStore(state => state);
     const { mutateAsync: refresh, isIdle } = useRefresh();
     const hasInitialized = useRef(false);
@@ -35,6 +42,11 @@ export function PrivateRoute({ children }: { children: React.ReactNode }) {
             initializeAuth();
         }
     }, [isIdle, isLogged, token, refresh, logout]);
+
+    if (isLimit && !isLogged) {
+        router.push("/login");
+        return null;
+    }
 
     return <>{children}</>;
 }
