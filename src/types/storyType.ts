@@ -14,6 +14,6 @@ export interface StoryType {
 export interface StoryCreateType {
     title?: string;
     description?: string;
-    genre?: string;
+    genre_ids?: number[];
     thumbnail?: string;
 }
