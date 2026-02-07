@@ -6,12 +6,22 @@ import { RankingCardList } from "./_components/RankingCardList";
 import { HomeTitle } from "./_components/HomeTitle";
 import { Loader2 } from "lucide-react";
 import { useLandingInquiry } from "@/hooks/landing/useLandingInquiry";
+import { LoadingSpinner } from "./_components/LoadingSpinner";
+import { LandingType } from "@/types/landingType";
 
-function HomeContent() {
-  const {data} = useLandingInquiry();
-  console.log("data", data);
+function HomeSkeleton() {
   return (
-    <article className="w-full flex flex-col gap-10 pt-4 pb-10">
+    <article className="w-full flex flex-col gap-10 pt-4">
+      <HomeTitle />
+      <RankingCardList />
+      <RecommandCardList />
+    </article>
+  )
+}
+
+function HomeContent({data}: {data: LandingType}) {
+  return (
+    <article className="w-full flex flex-col gap-10 pt-4">
       <HomeTitle />
       <RankingCardList />
       <RecommandCardList />
@@ -20,14 +30,10 @@ function HomeContent() {
 }
 
 export default function Home() {
+  const {data, isLoading} = useLandingInquiry();
+  if (!data) return <LoadingSpinner isLoading={isLoading} />;
+  
   return (
-    <Suspense fallback={
-      <div className="w-full flex items-center justify-center gap-4 my-auto">
-        <Loader2 className="w-4 h-4 animate-spin" />
-        로딩 중...
-      </div>
-    }>
-      <HomeContent />
-    </Suspense>
+    <HomeContent data={data} />
   );
 }
