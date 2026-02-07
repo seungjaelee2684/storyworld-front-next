@@ -100,6 +100,7 @@ export default function Signup() {
                                 <span>중복 확인</span>
                             </Button>
                         }
+                        fullWidth
                     />
                     <TextField
                         control={form.control}
@@ -108,6 +109,7 @@ export default function Signup() {
                         type="password"
                         placeholder="비밀번호를 입력해주세요."
                         isPassword
+                        fullWidth
                     />
                     <TextField
                         control={form.control}
@@ -116,6 +118,7 @@ export default function Signup() {
                         type="password"
                         placeholder="비밀번호를 다시 입력해주세요."
                         isPassword
+                        fullWidth
                     />
                     <TextField
                         control={form.control}
@@ -128,6 +131,7 @@ export default function Signup() {
                                 <span>중복 확인</span>
                             </Button>
                         }
+                        fullWidth
                     />
                     <TextField
                         control={form.control}
@@ -140,6 +144,7 @@ export default function Signup() {
                                 <span>중복 확인</span>
                             </Button>
                         }
+                        fullWidth
                     />
                     <Button type="submit" disabled={isPending}>
                         {isPending && <Loader2 className="w-4 h-4 animate-spin" />}

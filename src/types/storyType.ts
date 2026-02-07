@@ -10,3 +10,10 @@ export interface StoryType {
     created_at?: string;
     updated_at?: string;
 }
+
+export interface StoryCreateType {
+    title?: string;
+    description?: string;
+    genre?: string;
+    thumbnail?: string;
+}
