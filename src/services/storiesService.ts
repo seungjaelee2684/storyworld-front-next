@@ -1,4 +1,5 @@
 import { instance } from "@/lib/axios"
+import { StoryCreateType } from "@/types/storyType";
 
 export const storiesService = {
     findAll: async ({page}: {page: number}) => {
@@ -8,5 +9,9 @@ export const storiesService = {
             }
         });
         return data;
-    }
+    },
+    create: async ({body}: {body: StoryCreateType}) => {
+        const {data} = await instance.post("/api/stories/create/", body);
+        return data;
+    },
 }
