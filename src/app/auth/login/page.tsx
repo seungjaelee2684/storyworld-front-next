@@ -43,6 +43,7 @@ export default function Login() {
             await mutateAsync(data);
             router.push("/");
         } catch (error) {
+            console.log(error);
             toast.error("아이디 또는 비밀번로가 일치하지 않습니다.");
             return;
         }
