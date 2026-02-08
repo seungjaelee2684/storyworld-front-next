@@ -12,21 +12,21 @@ function HomeContent({ data }: { data: LandingType }) {
   return (
     <article className="w-full flex flex-col gap-10 pt-4">
       <HomeTitle />
-      <RankingCardList />
-      <RecommandCardList />
+      <RankingCardList data={data.ordered_stories} />
+      <RecommandCardList data={data.random_stories} />
     </article>
   );
 }
 
 function HomeWithData() {
   const { data, isLoading } = useLandingInquiry();
-  if (!data) return <LoadingSpinner isLoading={isLoading} />;
+  if (!data) return <LoadingSpinner isLoading={isLoading} isAbsolute={true} />;
   return <HomeContent data={data} />;
 }
 
 export default function Home() {
   return (
-    <Suspense fallback={<LoadingSpinner isLoading={true} />}>
+    <Suspense fallback={<LoadingSpinner isLoading={true} isAbsolute={true} />}>
       <HomeWithData />
     </Suspense>
   );

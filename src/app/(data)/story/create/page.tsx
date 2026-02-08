@@ -10,9 +10,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import z from "zod";
 import { FormInputLine } from "../../_components/FormInputLine";
 import GenreContainer from "../../_components/storyForm/GenreContainer";
+import { Loader, Save } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type FormDataType = {
     title: string,
+    sub_title?: string,
     description: string,
     genres: {
         id: number,
@@ -24,6 +27,7 @@ type FormDataType = {
 
 const formSchema = z.object({
     title: z.string().min(1, { message: "제목을 입력해주세요." }),
+    sub_title: z.string().optional(),
     description: z.string().min(1, { message: "내용을 입력해주세요." }),
     genres: z.array(z.object({
         id: z.number(),
@@ -35,31 +39,37 @@ const formSchema = z.object({
 
 function StoryCreateForm() {
 
-    const { mutateAsync } = useStoriesMutation();
+    const router = useRouter();
+    const { mutateAsync, isPending } = useStoriesMutation();
 
     const form = useForm<FormDataType>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
+            sub_title: undefined,
             description: "",
             genres: [],
         }
     })
-    
 
     const handleSubmit = async (data: FormDataType) => {
-        console.log(data);
         const { genres, ...rest } = data;
         const body = {
             ...rest,
             genre_ids: genres.map((genre) => genre.id),
         }
-        await mutateAsync({ body });
+        try {
+            const result = await mutateAsync({body});
+            if (!result) throw new Error("스토리 생성에 실패했습니다.");
+            router.push("/story/list");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="w-full flex flex-col gap-10">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="w-full flex flex-col sm:gap-10 gap-6">
                 <FormInputLine title="Title" description="Input Title Here" index={1}>
                     <TextField
                         control={form.control}
@@ -69,7 +79,16 @@ function StoryCreateForm() {
                         isRequired
                         fullWidth />
                 </FormInputLine>
-                <FormInputLine title="Description" description="Input Description Here" index={2}>
+                <FormInputLine title="Sub Title" description="Input Sub Title Here" index={2}>
+                    <TextField
+                        control={form.control}
+                        name="sub_title"
+                        placeholder="부제목을 입력해주세요."
+                        label="부제목"
+                        isChoice
+                        fullWidth />
+                </FormInputLine>
+                <FormInputLine title="Description" description="Input Description Here" index={3}>
                     <TextareaField
                         control={form.control}
                         name="description"
@@ -78,10 +97,11 @@ function StoryCreateForm() {
                         className="h-32"
                         isRequired />
                 </FormInputLine>
-                <GenreContainer<FormDataType>/>
+                <GenreContainer<FormDataType> />
                 <Separator />
-                <Button type="submit" className="mt-[-20px]">
-                    스토리 생성
+                <Button type="submit" className="sm:mt-[-20px] sm:w-fit w-full ml-auto">
+                    {isPending ? <Loader className="size-4 animate-spin" /> : <Save className="size-4" />}
+                    {isPending ? "저장 중..." : "저장"}
                 </Button>
             </form>
         </FormProvider>
@@ -90,7 +110,7 @@ function StoryCreateForm() {
 
 export default function StoryCreate() {
     return (
-        <article className="w-full flex flex-col gap-10 pt-4">
+        <article className="w-full flex flex-col gap-6 pt-4">
             <div className="flex flex-col">
                 <h1 className="text-lg font-bold leading-normal">
                     스토리 생성
@@ -99,6 +119,7 @@ export default function StoryCreate() {
                     나만의 스토리를 생성해보세요.
                 </p>
             </div>
+            <Separator />
             <StoryCreateForm />
         </article>
     )

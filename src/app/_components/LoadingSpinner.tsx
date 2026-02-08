@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-export function LoadingSpinner({isLoading}: {isLoading: boolean}) {
+export function LoadingSpinner({isLoading, isAbsolute = false}: {isLoading: boolean, isAbsolute?: boolean}) {
 
     const loadingRef = useRef<HTMLDivElement>(null);
 
@@ -26,7 +26,8 @@ export function LoadingSpinner({isLoading}: {isLoading: boolean}) {
 
     return (
         <div ref={loadingRef} className={cn(
-            "w-screen h-screen fixed top-0 left-0 z-10 bg-black/50 dark:bg-white/50 backdrop-blur-sm",
+            isAbsolute ? "absolute" : "fixed",
+            "w-full h-screen top-0 left-0 z-10 bg-black/50 dark:bg-white/50 backdrop-blur-sm",
             "transition-all text-white text-2xl font-bold dark:text-black",
             "hidden opacity-0"
         )}>

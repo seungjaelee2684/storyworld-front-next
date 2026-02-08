@@ -10,6 +10,9 @@ export function useStoriesMutation() {
         },
         onSuccess: () => {
             toast.success("스토리가 생성되었습니다.");
+        },
+        onError: () => {
+            toast.error("스토리 생성에 실패했습니다.");
         }
     })
 }

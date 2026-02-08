@@ -15,6 +15,7 @@ interface TextFieldProps<T extends FieldValues = FieldValues> {
     unit?: string;
     isPassword?: boolean;
     fullWidth?: boolean;
+    isChoice?: boolean;
     isRequired?: boolean;
     button?: React.ReactNode;
     className?: string;
@@ -30,6 +31,7 @@ export function TextField<T extends FieldValues = FieldValues>({
     unit,
     isPassword = false,
     fullWidth = false,
+    isChoice = false,
     isRequired = false,
     button,
     className
@@ -46,6 +48,7 @@ export function TextField<T extends FieldValues = FieldValues>({
                     {label
                         && <FormLabel htmlFor={field.name}>
                             {label}
+                            {isChoice && <span className="text-xs leading-none text-muted-foreground font-light mt-auto ml-[-4px]">(선택)</span>}
                             {isRequired && <span className="text-red-500 leading-none">*</span>}
                         </FormLabel>}
                     <div className="w-full flex items-center gap-2">

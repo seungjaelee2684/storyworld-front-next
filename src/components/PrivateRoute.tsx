@@ -43,8 +43,13 @@ export function PrivateRoute({ isLimit = false, children }: PrivateRouteProps): 
         }
     }, [isIdle, isLogged, token, refresh, logout]);
 
+    useEffect(() => {
+        if (isLimit && !isLogged && !isIdle) {
+            router.push("/auth/login");
+        }
+    }, [isLimit, isLogged, isIdle, router]);
+
     if (isLimit && !isLogged) {
-        router.push("/login");
         return null;
     }
 
