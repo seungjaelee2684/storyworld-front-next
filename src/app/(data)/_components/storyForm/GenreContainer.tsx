@@ -8,6 +8,7 @@ import { Pin } from "lucide-react";
 import { Field, FieldContent, FieldLabel, FieldTitle } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const GenreContainer = <T extends FieldValues = FieldValues>() => {
 
@@ -18,14 +19,27 @@ const GenreContainer = <T extends FieldValues = FieldValues>() => {
 
     const genreSkeleton = new Array(30).fill(0).map((_, index) => {return <Skeleton key={index} className="w-full h-12.5 rounded-sm" />});
 
+    const handleAddGenre = (checked: string | boolean, genre: GenreType, field: FieldValues) => {
+        if (checked) {
+            if (field.value.length >= 3) return toast.error("최대 3개의 장르를 선택할 수 있습니다.");
+            field.onChange([...field.value, genre]);
+        } else {
+            field.onChange(field.value.filter((g: GenreType) => g.id !== genre.id));
+        }
+    }
+
     return (
-        <FormInputLine title="Genre" description="Select Genre Here" index={3}>
+        <FormInputLine title="Genre" description="Select Genre Here" index={4}>
             <FormField
                 control={form.control}
                 name={"genres" as Path<T>}
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>장르<span className="text-red-500 leading-none">*</span></FormLabel>
+                        <FormLabel>
+                            장르
+                            <span className="text-[10px] leading-none text-muted-foreground mt-auto ml-[-4px]">(최대 3개)</span>
+                            <span className="text-red-500 leading-none">*</span>
+                        </FormLabel>
                         {isLoading && (
                             <div className="w-full grid sm:grid-cols-4 grid-cols-2 gap-2">
                                 {genreSkeleton}
@@ -39,12 +53,12 @@ const GenreContainer = <T extends FieldValues = FieldValues>() => {
                                             key={genre.id}
                                             className={cn(
                                                 index === 0 && "bg-primary/10 text-primary border-primary/80",
-                                                "px-2 py-1.5 rounded-sm border-1 text-xs flex items-center gap-1 relative",
+                                                "px-2 py-1.5 rounded-sm border-1 sm:text-xs text-[10px] flex items-center gap-1 relative",
                                                 "group"
                                             )}>
                                             {index === 0
                                                 && <span className={cn(
-                                                    "text-[10px] text-white bg-primary px-1 py-0.5 rounded-[4px]"
+                                                    "sm:text-[10px] text-[8px] text-white bg-primary px-1 py-0.5 rounded-[4px]"
                                                 )}>
                                                     메인
                                                 </span>}
@@ -66,7 +80,7 @@ const GenreContainer = <T extends FieldValues = FieldValues>() => {
                                 })}
 
                             </div>}
-                        <div className="w-full grid sm:grid-cols-4 grid-cols-2 gap-2">
+                        <div className="w-full grid sm:grid-cols-4 grid-cols-3 sm:gap-2 gap-1">
                             {genres && genres.length > 0
                                 && genres.map((genre) => {
 
@@ -75,21 +89,15 @@ const GenreContainer = <T extends FieldValues = FieldValues>() => {
 
                                     return (
                                         <FormControl key={genre.id}>
-                                            <FieldLabel>
+                                            <FieldLabel className="sm:[&>*]:data-[slot=field]:p-4 [&>*]:data-[slot=field]:p-3">
                                                 <Field orientation="horizontal" className="cursor-pointer hover:opacity-70 transition-all">
                                                     <Checkbox
                                                         id={`genre-${genre.id}`}
                                                         checked={isChecked}
-                                                        onCheckedChange={(checked) => {
-                                                            if (checked) {
-                                                                field.onChange([...field.value, genre]);
-                                                            } else {
-                                                                field.onChange(field.value.filter((g: GenreType) => g.id !== genre.id));
-                                                            }
-                                                        }}
+                                                        onCheckedChange={(checked) => handleAddGenre(checked, genre, field)}
                                                     />
                                                     <FieldContent>
-                                                        <FieldTitle className="text-xs">{genre.name}</FieldTitle>
+                                                        <FieldTitle className="sm:text-xs text-[10px]">{genre.name}</FieldTitle>
                                                     </FieldContent>
                                                 </Field>
                                             </FieldLabel>
