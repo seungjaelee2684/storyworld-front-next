@@ -61,7 +61,7 @@ function StoryCreateForm() {
         try {
             const result = await mutateAsync({body});
             if (!result) throw new Error("스토리 생성에 실패했습니다.");
-            router.push("/story/list");
+            router.push("/list/story");
         } catch (error) {
             console.log(error);
         }
@@ -110,17 +110,17 @@ function StoryCreateForm() {
 
 export default function StoryCreate() {
     return (
-        <article className="w-full flex flex-col gap-6 pt-4">
-            <div className="flex flex-col">
+        <section className="w-full flex flex-col gap-6 pt-4">
+            <article className="flex flex-col">
                 <h1 className="text-lg font-bold leading-normal">
                     스토리 생성
                 </h1>
                 <p className="text-sm leading-normal text-foreground/70">
                     나만의 스토리를 생성해보세요.
                 </p>
-            </div>
+            </article>
             <Separator />
             <StoryCreateForm />
-        </article>
+        </section>
     )
 }

@@ -58,7 +58,7 @@ export default function Login() {
     if (isLogged) return null;
 
     return (
-        <article className="w-full flex flex-col justify-center items-center gap-10 sm:px-0 px-4">
+        <section className="flex min-h-full w-full flex-col items-center justify-center gap-10 sm:px-0 px-4">
             <h1 className="text-2xl font-bold">로그인</h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="sm:w-3/7 w-full flex flex-col gap-4">
@@ -84,7 +84,7 @@ export default function Login() {
                     <KakaoLoginBtn />
                 </form>
             </FormProvider>
-        </article>
+        </section>
     )
 }
 

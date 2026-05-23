@@ -7,6 +7,7 @@ import { HomeTitle } from "./_components/HomeTitle";
 import { useLandingInquiry } from "@/hooks/landing/useLandingInquiry";
 import { LoadingSpinner } from "./_components/LoadingSpinner";
 import { LandingType } from "@/types/landingType";
+import { PageLayout } from "./_components/PageLayout";
 
 function HomeContent({ data }: { data: LandingType }) {
   return (
@@ -26,8 +27,10 @@ function HomeWithData() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<LoadingSpinner isLoading={true} isAbsolute={true} />}>
-      <HomeWithData />
-    </Suspense>
+    <PageLayout>
+      <Suspense fallback={<LoadingSpinner isLoading={true} isAbsolute={true} />}>
+        <HomeWithData />
+      </Suspense>
+    </PageLayout>
   );
 }
