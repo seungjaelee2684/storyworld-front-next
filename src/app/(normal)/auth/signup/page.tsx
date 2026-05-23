@@ -86,7 +86,7 @@ export default function Signup() {
     }
 
     return (
-        <article className="w-full flex flex-col justify-center items-center gap-10 pt-4 pb-10">
+        <section className="w-full min-h-full flex flex-col justify-center items-center gap-10 pt-4 pb-10">
             <h1 className="text-2xl font-bold">회원가입</h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="sm:w-3/7 w-full flex flex-col gap-8">
@@ -153,6 +153,6 @@ export default function Signup() {
                     </Button>
                 </form>
             </FormProvider>
-        </article>
+        </section>
     )
 }

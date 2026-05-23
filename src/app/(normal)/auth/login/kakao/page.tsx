@@ -33,9 +33,9 @@ export default function KakaoLoginPage() {
     }, [kakaoLogin, router]);
 
     return (
-        <article className="w-full flex flex-col justify-center items-center gap-6 sm:px-0 px-4">
+        <section className="w-full flex flex-col justify-center items-center gap-6 sm:px-0 px-4">
             <div className="w-16 h-16 rounded-full animate-spin border-t-2 border-r-2 border-kakao" />
             <p className="text-lg font-bold">카카오 로그인 중...</p>
-        </article>
+        </section>
     );
 }

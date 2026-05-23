@@ -10,7 +10,7 @@ export function Providers({children}: {children: React.ReactNode}) {
 
     const pathname = usePathname();
     const isLimitPage = pathname.startsWith("/dashboard")
-        || pathname.startsWith("/story/create");
+        || pathname.startsWith("/create/story");
 
     return (
         <QueryClientProvider client={queryClient}>
