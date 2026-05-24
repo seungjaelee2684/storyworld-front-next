@@ -4,7 +4,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail, useSidebar } from "@/components/ui/sidebar"
 import { UserInfoType } from "@/types/authType"
-import { Book, ChevronDown, ChevronsUpDown, Home, Plus, User2 } from "lucide-react"
+import { Book, ChevronsUpDown, Home, List, Plus, Users } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -15,14 +15,19 @@ const sidebarItems = [
         href: "/dashboard",
     },
     {
-        label: "대시보드 홈",
-        icon: <Home className="size-5" />,
-        href: "/dashboard",
+        label: "에피소드 목록",
+        icon: <List className="size-5" />,
+        href: "/dashboard/list/episode",
     },
     {
-        label: "대시보드 홈",
-        icon: <Home className="size-5" />,
-        href: "/dashboard",
+        label: "캐릭터 목록",
+        icon: <Users className="size-5" />,
+        href: "/dashboard/list/character",
+    },
+    {
+        label: "",
+        icon: <Users className="size-5" />,
+        href: "/dashboard/list/character",
     },
 ];
 
