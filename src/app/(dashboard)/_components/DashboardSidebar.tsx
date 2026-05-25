@@ -2,34 +2,41 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail, useSidebar } from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail, useSidebar } from "@/components/ui/sidebar"
 import { UserInfoType } from "@/types/authType"
-import { Book, ChevronsUpDown, Home, List, Plus, Users } from "lucide-react"
+import { Book, ChevronRight, ChevronsUpDown, Home, List, MoreHorizontal, Plus, Users } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
-const sidebarItems = [
-    {
+const sidebarObj = {
+    dashboard: {
         label: "대시보드 홈",
         icon: <Home className="size-5" />,
-        href: "/dashboard",
+        href: "/dashboard"
     },
-    {
-        label: "에피소드 목록",
-        icon: <List className="size-5" />,
-        href: "/dashboard/list/episode",
-    },
-    {
-        label: "캐릭터 목록",
-        icon: <Users className="size-5" />,
-        href: "/dashboard/list/character",
-    },
-    {
-        label: "",
-        icon: <Users className="size-5" />,
-        href: "/dashboard/list/character",
-    },
-];
+    navMain: [
+        {
+            title: "소설 목록",
+            url: "#",
+            icon: <Book className="size-5"/>,
+            isActive: true,
+            items: [
+                {
+                    title: "에피소드 목록",
+                    url: "#",
+                },
+                {
+                    title: "캐릭터 목록",
+                    url: "#",
+                },
+                {
+                    title: "사건 목록",
+                    url: "#",
+                },
+            ],
+        },
+    ]
+}
 
 const DashboardSidebar = ({ me }: { me: UserInfoType | undefined }) => {
 
@@ -92,36 +99,69 @@ const DashboardSidebar = ({ me }: { me: UserInfoType | undefined }) => {
                 <SidebarGroup>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {sidebarItems.map((item, index) => (
-                                <SidebarMenuItem key={index}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.href}>
-                                            {item.icon}
-                                            <span>{item.label}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild>
+                                    <a href={sidebarObj.dashboard.href}>
+                                        {sidebarObj.dashboard.icon}
+                                        <span>{sidebarObj.dashboard.label}</span>
+                                    </a>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                    <SidebarMenu>
+                        {sidebarObj.navMain.map((item) => (
+                            <Collapsible
+                                key={item.title}
+                                asChild
+                                defaultOpen={item.isActive}
+                                className="group/collapsible"
+                            >
+                                <SidebarMenuItem>
+                                    <CollapsibleTrigger asChild>
+                                        <SidebarMenuButton tooltip={item.title}>
+                                            {item.icon}
+                                            <span>{item.title}</span>
+                                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                        </SidebarMenuButton>
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <SidebarMenuSub>
+                                            {item.items?.map((subItem) => (
+                                                <SidebarMenuSubItem key={subItem.title}>
+                                                    <SidebarMenuSubButton asChild>
+                                                        <a href={subItem.url}>
+                                                            <span>{subItem.title}</span>
+                                                        </a>
+                                                    </SidebarMenuSubButton>
+                                                </SidebarMenuSubItem>
+                                            ))}
+                                        </SidebarMenuSub>
+                                    </CollapsibleContent>
+                                </SidebarMenuItem>
+                            </Collapsible>
+                        ))}
+                    </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    size="lg"
-                                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                                >
-                                    <Avatar className="h-8 w-8 rounded-lg">
-                                        <AvatarImage src={"/images/square_logo.png"} alt={me?.nickname || ""} />
-                                        <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                                    </Avatar>
-                                    <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-semibold">{me?.nickname}</span>
-                                        <span className="truncate text-xs">{me?.username}</span>
-                                    </div>
-                                </SidebarMenuButton>
+                        <SidebarMenuButton
+                            size="lg"
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                        >
+                            <Avatar className="h-8 w-8 rounded-lg">
+                                <AvatarImage src={"/images/square_logo.png"} alt={me?.nickname || ""} />
+                                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                            </Avatar>
+                            <div className="grid flex-1 text-left text-sm leading-tight">
+                                <span className="truncate font-semibold">{me?.nickname}</span>
+                                <span className="truncate text-xs">{me?.username}</span>
+                            </div>
+                        </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>
